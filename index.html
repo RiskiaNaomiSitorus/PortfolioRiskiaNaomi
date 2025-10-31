@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Portfolio of Riskia Naomi Sitorus, Computer Science student specializing in web & mobile development." />
+  <meta name="keywords" content="Riskia Naomi Sitorus, portfolio, web developer, mobile developer, JavaScript, React, Django, Laravel, Kotlin" />
+  <title>Riskia Naomi Sitorus — Web & Mobile Developer</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- EmailJS -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+  <style>
+    :root{
+      --accent-500: #2563EB;
+      --accent-600: #1E40AF;
+      --muted: #6B7280;
+      --card-shadow: 0 10px 30px rgba(16,24,40,0.06);
+    }
+
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    .font-inter { font-family: 'Inter', sans-serif; }
+
+    .section-title {
+      @apply text-3xl md:text-4xl font-poppins font-semibold mb-8 text-gray-800;
+    }
+
+    .card {
+      @apply rounded-2xl p-6 transition-transform duration-300;
+      box-shadow: var(--card-shadow);
+      background: var(--card-bg, #ffffff);
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(16,24,40,0.12); }
+
+    .project-img { @apply w-full object-cover rounded-xl mb-4; height: 12rem; }
+    @media (max-width:640px){ .project-img{ height:9.5rem; } }
+
+    /* Theme tokens */
+    [data-theme='light'] {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #6B7280;
+      --card-bg: #ffffff;
+      --card-shadow: 0 10px 30px rgba(16,24,40,0.06);
+    }
+    [data-theme='dark'] {
+      --bg: #071026;
+      --surface: #071826;
+      --text: #E6EEF8;
+      --muted: #9CA3AF;
+      --card-bg: #071826;
+      --card-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+
+    body { background: var(--bg); color: var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+    .nav-blur { backdrop-filter: blur(8px); background: rgba(255,255,255,0.6); }
+    [data-theme='dark'] .nav-blur { background: rgba(2,6,23,0.6); }
+
+    .muted { color: var(--muted); }
+    .focus-ring:focus { outline: none; box-shadow: 0 0 0 4px rgba(37,99,235,0.08); border-radius: 8px; }
+
+    :target { scroll-margin-top: 96px; }
+
+    /* image container to keep face clear and responsive */
+    .profile-wrap { display: flex; align-items: center; justify-content: center; }
+    .profile-img {
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(16,24,40,0.12);
+      border: 4px solid rgba(255,255,255,0.06);
+      transition: transform .35s ease;
+    }
+    .profile-img:hover { transform: translateY(-6px) scale(1.02); }
+    @media (max-width: 768px) {
+      .profile-img { width: 200px; height: 200px; }
+    }
+  </style>
+</head>
+<body class="font-inter" data-theme="light">
+
+  <!-- NAV -->
+  <header class="fixed w-full top-0 left-0 z-50">
+    <div class="nav-blur border-b border-gray-200 dark:border-gray-700">
+      <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+        <a href="#home" class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-poppins font-semibold">RN</div>
+          <div class="hidden sm:block">
+            <div class="text-lg font-poppins font-semibold text-indigo-700 dark:text-indigo-300">Riskia Naomi Sitorus</div>
+            <div class="text-sm muted">Web & Mobile Developer</div>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="#about" class="hover:text-blue-600">About</a>
+          <a href="#experience" class="hover:text-blue-600">Experience</a>
+          <a href="#projects" class="hover:text-blue-600">Projects</a>
+          <a href="#skills" class="hover:text-blue-600">Skills</a>
+          <a href="#contact" class="hover:text-blue-600">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <button id="theme-toggle" class="focus-ring p-2 rounded-lg bg-white shadow-sm dark:bg-gray-800" aria-label="Toggle theme">
+            <svg id="icon-sun" class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 4.5a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5A.75.75 0 0110 4.5zM10 15.25a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5a.75.75 0 01-.75-.75zM4.5 10a.75.75 0 01-.75-.75v-.5a.75.75 0 011.5 0v.5A.75.75 0 014.5 10zM15.25 10a.75.75 0 01-.75-.75v-.5a.75.75 0 011.5 0v.5a.75.75 0 01-.75.75zM5.636 5.636a.75.75 0 010-1.06l.354-.354a.75.75 0 011.06 1.06l-.354.354a.75.75 0 01-1.06 0zM13.95 14.95a.75.75 0 010-1.06l.354-.354a.75.75 0 011.06 1.06l-.354.354a.75.75 0 01-1.06 0zM5.636 14.364a.75.75 0 01-1.06 0l-.354-.354a.75.75 0 011.06-1.06l.354.354a.75.75 0 010 1.06zM14.95 5.05a.75.75 0 01-1.06 0l-.354-.354a.75.75 0 011.06-1.06l.354.354a.75.75 0 010 1.06z" /></svg>
+            <svg id="icon-moon" class="w-5 h-5 text-gray-700 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M17.293 13.293A8 8 0 116.707 2.707 7 7 0 1017.293 13.293z" clip-rule="evenodd" /></svg>
+          </button>
+
+          <button id="menu-toggle" class="md:hidden p-2 rounded-lg focus-ring bg-white shadow-sm dark:bg-gray-800" aria-label="Toggle menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- mobile -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100">
+        <div class="px-6 py-4 bg-surface">
+          <a href="#about" class="block py-2">About</a>
+          <a href="#experience" class="block py-2">Experience</a>
+          <a href="#projects" class="block py-2">Projects</a>
+          <a href="#skills" class="block py-2">Skills</a>
+          <a href="#contact" class="block py-2">Contact</a>
+          <div class="pt-4 border-t border-gray-100 mt-2">
+            <a href="https://github.com/RiskiaNaomiSitorus" target="_blank" class="block py-2">GitHub</a>
+            <a href="https://www.linkedin.com/in/riskia-naomi-sitorus-5a20ba246" target="_blank" class="block py-2">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-28">
+
+    <!-- HERO with photo on right -->
+    <section id="home" class="py-12">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div data-aos="fade-right">
+            <h1 class="text-4xl md:text-5xl font-poppins font-bold mb-3">Riskia Naomi Sitorus</h1>
+            <p class="text-lg muted mb-5">Computer Science Enthusiast | Web & Mobile Developer</p>
+
+            <p class="muted mb-6 max-w-xl">
+              Final-year Computer Science student at Institut Teknologi Del. I build user-centered web & mobile applications
+              — from frontend UI to backend APIs — using frameworks like <strong>Laravel, Django, React</strong> and mobile toolkits like <strong>Kotlin & Jetpack Compose</strong>.
+            </p>
+
+            <div class="flex gap-3">
+              <a href="https://github.com/RiskiaNaomiSitorus" target="_blank" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition">GitHub</a>
+              <a href="https://www.linkedin.com/in/riskia-naomi-sitorus-5a20ba246" target="_blank" class="px-4 py-2 rounded-lg border border-indigo-600 text-indigo-600 hover:bg-indigo-50 transition">LinkedIn</a>
+              <a href="mailto:riskianaomil7@gmail.com" class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition">Email</a>
+            </div>
+          </div>
+
+          <div class="profile-wrap justify-center" data-aos="fade-left">
+            <!-- Profile image: put assets/Riskia-profile.png in your assets folder -->
+            <img src="assets/Riskia-profile.png" alt="Riskia Naomi Sitorus" class="profile-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-16">
+      <div class="max-w-4xl mx-auto px-6 text-center" data-aos="fade-up">
+        <h2 class="section-title">About Me</h2>
+        <p class="muted leading-relaxed">
+          I am a final-year Computer Science student at Institut Teknologi Del, passionate about leveraging technology to solve real-world challenges.
+          My practice covers full-stack web development and native mobile apps with hands-on experience in project environments and internships.
+          I enjoy designing clean architectures, shipping reliable features, and ensuring delightful user experiences.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="py-16 bg-surface">
+      <div class="max-w-7xl mx-auto px-6" data-aos="fade-up">
+        <h2 class="section-title">Experience</h2>
+        <div class="grid md:grid-cols-2 gap-8 mt-6">
+          <article class="card" data-aos="fade-up" data-aos-delay="80">
+            <h3 class="text-lg font-semibold text-indigo-600">Member, DPPM - Kemdiktisaintek</h3>
+            <p class="text-sm muted">March 2025 – September 2025</p>
+            <ul class="mt-4 muted list-disc ml-5 space-y-2">
+              <li>Planned and evaluated technology-driven projects to enhance higher education quality.</li>
+              <li>Collaborated on designing educational technology solutions and pilot activities.</li>
+            </ul>
+          </article>
+
+          <article class="card" data-aos="fade-up" data-aos-delay="120">
+            <h3 class="text-lg font-semibold text-indigo-600">Administrative Staff, PT Digital Tenun Nusantara - IT Del</h3>
+            <p class="text-sm muted">Feb 2025 – Oktoer 2025</p>
+            <ul class="mt-4 muted list-disc ml-5 space-y-2">
+              <li>Managed internal administration and supported IT documentation.</li>
+              <li>Coordinated inter-division workflows to improve operational efficiency.</li>
+            </ul>
+          </article>
+
+          <article class="card" data-aos="fade-up" data-aos-delay="160">
+            <h3 class="text-lg font-semibold text-indigo-600">Web Developer — PT Kinema Systrans Multimedia (Independent Study)</h3>
+            <p class="text-sm muted">Sept 2024 – Jan 2025</p>
+            <ul class="mt-4 muted list-disc ml-5 space-y-2">
+              <li>Developed & tested web modules and implemented UI components.</li>
+              <li>Analyzed system requirements and fixed functional issues.</li>
+            </ul>
+          </article>
+
+          <article class="card" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="text-lg font-semibold text-indigo-600">Web Developer Intern — PT Tolan Tiga Indonesia</h3>
+            <p class="text-sm muted">June 2024 – Sept 2024</p>
+            <ul class="mt-4 muted list-disc ml-5 space-y-2">
+              <li>Built and maintained web apps with HTML, CSS, JS & React.</li>
+              <li>Conducted testing, debugging and documentation.</li>
+            </ul>
+          </article>
+
+          <article class="card" data-aos="fade-up" data-aos-delay="240">
+            <h3 class="text-lg font-semibold text-indigo-600">Technical Mobile — Bootcamp Android Jetpack Compose</h3>
+            <p class="text-sm muted">June 2024</p>
+            <ul class="mt-4 muted list-disc ml-5 space-y-2">
+              <li>Learned Kotlin & Jetpack Compose basics, created UI prototypes.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-16">
+      <div class="max-w-7xl mx-auto px-6" data-aos="fade-up">
+        <h2 class="section-title">Projects</h2>
+        <div class="grid md:grid-cols-3 gap-8 mt-6">
+          <div class="card" data-aos="zoom-in" data-aos-delay="80">
+            <img src="assets/match.jpg" alt="Tech Match Game" class="project-img" />
+            <h4 class="text-lg font-semibold text-indigo-600">Tech Match Game</h4>
+            <p class="text-sm muted mb-2">Unity & C# • March–April 2025</p>
+            <p class="muted">A match-3 puzzle with themed icons and special bomb mechanics to enhance engagement.</p>
+            <p class="mt-3 text-sm text-indigo-600 font-medium">Tech: Unity, C#</p>
+          </div>
+
+          <div class="card" data-aos="zoom-in" data-aos-delay="120">
+            <img src="assets/lidi ditenun.jpg" alt="Lidi DiTenun" class="project-img" />
+            <h4 class="text-lg font-semibold text-indigo-600">Lidi DiTenun Module Feature</h4>
+            <p class="text-sm muted mb-2">Django, Pillow, OpenCV • 2024</p>
+            <p class="muted">Pattern merging & coloring features with heuristic evaluation for usability improvements.</p>
+            <p class="mt-3 text-sm text-indigo-600 font-medium">Tech: Django, Pillow, OpenCV, Figma</p>
+          </div>
+
+          <div class="card" data-aos="zoom-in" data-aos-delay="160">
+            <img src="assets/lembur.jpg" alt="Overtime Website" class="project-img" />
+            <h4 class="text-lg font-semibold text-indigo-600">Website Lembur Karyawan</h4>
+            <p class="text-sm muted mb-2">React • 2024</p>
+            <p class="muted">Overtime tracking & approval system for internal HR & management.</p>
+            <p class="mt-3 text-sm text-indigo-600 font-medium">Tech: HTML, CSS, JavaScript, React</p>
+          </div>
+
+          <div class="card" data-aos="zoom-in" data-aos-delay="200">
+            <img src="assets/lostfound.jpg" alt="LostAndFound" class="project-img" />
+            <h4 class="text-lg font-semibold text-indigo-600">LostAndFound App</h4>
+            <p class="text-sm muted mb-2">Kotlin • 2024</p>
+            <p class="muted">Mobile app to track lost/found items with backend integration and simple UX.</p>
+            <p class="mt-3 text-sm text-indigo-600 font-medium">Tech: Kotlin, Jetpack Compose</p>
+          </div>
+
+          <div class="card" data-aos="zoom-in" data-aos-delay="240">
+            <img src="assets/whatsapp.jpg" alt="WhatsApp Clone" class="project-img" />
+            <h4 class="text-lg font-semibold text-indigo-600">WhatsApp Clone</h4>
+            <p class="text-sm muted mb-2">Kotlin • 2024</p>
+            <p class="muted">Messaging app clone with authentication and chat features.</p>
+            <p class="mt-3 text-sm text-indigo-600 font-medium">Tech: Kotlin, Jetpack Compose</p>
+          </div>
+
+          <div class="card" data-aos="zoom-in" data-aos-delay="280">
+            <img src="assets/himasti.jpg" alt="HIMASTI Website" class="project-img" />
+            <h4 class="text-lg font-semibold text-indigo-600">HIMASTI Website</h4>
+            <p class="text-sm muted mb-2">HTML/CSS/JS • Jan 2024</p>
+            <p class="muted">Responsive site for student organization with database integration for info sharing.</p>
+            <p class="mt-3 text-sm text-indigo-600 font-medium">Tech: HTML, CSS, JavaScript, MySQL</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-16 bg-surface">
+      <div class="max-w-5xl mx-auto px-6" data-aos="fade-up">
+        <h2 class="section-title">Skills</h2>
+        <div class="grid md:grid-cols-2 gap-8 mt-6">
+          <div class="card">
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">Technical Skills</h3>
+            <ul class="muted list-disc ml-5 space-y-2">
+              <li>Frameworks & Backend: Laravel (Eloquent, Blade, REST API), Django</li>
+              <li>Frontend & Tools: JavaScript (ES6+), React, HTML, CSS, Tailwind</li>
+              <li>Mobile: Kotlin, Jetpack Compose</li>
+              <li>Databases: MySQL, MongoDB</li>
+              <li>Version Control: Git, GitHub</li>
+              <li>Design: UI/UX (Figma), Responsive Design</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">Soft Skills</h3>
+            <ul class="muted list-disc ml-5 space-y-2">
+              <li>Team Collaboration & Communication</li>
+              <li>Problem Solving & Analytical Thinking</li>
+              <li>Time Management & Prioritization</li>
+              <li>Adaptability & Continuous Learning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-16">
+      <div class="max-w-3xl mx-auto px-6" data-aos="fade-up">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="card">
+          <form id="contact-form" class="space-y-4">
+            <div>
+              <label for="name" class="text-sm font-medium muted">Name</label>
+              <input id="name" type="text" required class="mt-2 w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-transparent" placeholder="Your name" />
+            </div>
+
+            <div>
+              <label for="email" class="text-sm font-medium muted">Email</label>
+              <input id="email" type="email" required class="mt-2 w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-transparent" placeholder="you@example.com" />
+            </div>
+
+            <div>
+              <label for="message" class="text-sm font-medium muted">Message</label>
+              <textarea id="message" rows="6" required class="mt-2 w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 bg-transparent" placeholder="Write your message..."></textarea>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button id="send-btn" type="submit" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-lg font-medium transition">Send Message</button>
+
+              <button id="mailto-btn" type="button" class="inline-flex items-center gap-2 px-4 py-3 border rounded-lg muted hover:border-gray-300" title="Open in mail client">Email Me</button>
+            </div>
+
+            <p class="text-sm muted mt-2">Or connect via <a href="https://github.com/RiskiaNaomiSitorus" target="_blank" class="text-indigo-600">GitHub</a> / <a href="https://www.linkedin.com/in/riskia-naomi-sitorus-5a20ba246" target="_blank" class="text-indigo-600">LinkedIn</a></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="text-sm muted">© 2025 Riskia Naomi Sitorus. All rights reserved.</p>
+      <div class="flex items-center justify-center gap-6 mt-4">
+        <a href="https://github.com/RiskiaNaomiSitorus" target="_blank" class="muted hover:text-indigo-600">GitHub</a>
+        <a href="https://www.linkedin.com/in/riskia-naomi-sitorus-5a20ba246" target="_blank" class="muted hover:text-indigo-600">LinkedIn</a>
+        <a href="mailto:riskianaomil7@gmail.com" class="muted hover:text-indigo-600">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true });
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    }
+
+    // Smooth scroll and close mobile menu if open
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // THEME (dark mode) toggle + persist
+    const themeToggle = document.getElementById('theme-toggle');
+    const iconSun = document.getElementById('icon-sun');
+    const iconMoon = document.getElementById('icon-moon');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.body.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        iconSun.classList.add('hidden');
+        iconMoon.classList.remove('hidden');
+      } else {
+        iconSun.classList.remove('hidden');
+        iconMoon.classList.add('hidden');
+      }
+    }
+
+    const saved = localStorage.getItem('rn-theme');
+    if (saved) applyTheme(saved);
+    else {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.body.getAttribute('data-theme') || 'light';
+      const next = current === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      localStorage.setItem('rn-theme', next);
+    });
+
+    // EMAIL FORM (EmailJS fallback to mailto)
+    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+
+    try { if (emailjs && EMAILJS_PUBLIC_KEY) emailjs.init(EMAILJS_PUBLIC_KEY); } catch (e) { console.warn(e); }
+
+    const contactForm = document.getElementById('contact-form');
+    const sendBtn = document.getElementById('send-btn');
+    const mailtoBtn = document.getElementById('mailto-btn');
+
+    mailtoBtn.addEventListener('click', () => {
+      const subject = encodeURIComponent('Contact from Portfolio Website');
+      const body = encodeURIComponent('Hi Riskia,%0D%0A%0D%0A');
+      window.location.href = `mailto:riskianaomil7@gmail.com?subject=${subject}&body=${body}`;
+    });
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      sendBtn.disabled = true;
+      sendBtn.classList.add('opacity-70', 'cursor-not-allowed');
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        alert('Please complete all fields.');
+        sendBtn.disabled = false;
+        sendBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+        return;
+      }
+
+      // If EmailJS keys not set, fallback to mailto
+      if (!EMAILJS_PUBLIC_KEY || EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+        const subject = encodeURIComponent(`Contact from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        window.location.href = `mailto:riskianaomil7@gmail.com?subject=${subject}&body=${body}`;
+        sendBtn.disabled = false;
+        sendBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+        return;
+      }
+
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: name,
+        from_email: email,
+        message: message
+      }).then(() => {
+        alert('Message sent successfully — thank you!');
+        contactForm.reset();
+        sendBtn.disabled = false;
+        sendBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+      }).catch(err => {
+        console.error(err);
+        alert('Failed to send. Opening your email client as fallback.');
+        const subject = encodeURIComponent(`Contact from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        window.location.href = `mailto:riskianaomil7@gmail.com?subject=${subject}&body=${body}`;
+        sendBtn.disabled = false;
+        sendBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+      });
+    });
+
+    // Keep images responsive
+    window.addEventListener('load', () => {
+      document.querySelectorAll('img').forEach(img => {
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
